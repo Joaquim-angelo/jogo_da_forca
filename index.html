@@ -137,7 +137,7 @@ canvas {
   <div class="container">
     <h1>🎯 JOGO DA FORCA</h1>
     <p>Porcentagem • Juros • Estatística</p>
-    <p>Desenvolvido pelo PIBID UESPI</p>
+    <p>Desenvolvido pelo alunos do PIBID UESPI</p>
     <button onclick="goToRules()">Ver Regras</button>
   </div>
 </div>
@@ -173,7 +173,7 @@ canvas {
 
     <div id="answers"></div>
 
-    <button class="restart" onclick="restartGame()">Jogar novamente</button>
+    <button class="restart" onclick="restartGame()">Voltar para o inicio</button>
   </div>
 </div>
 
@@ -250,12 +250,52 @@ function draw() {
 }
 
 const questions = [
+  { q: "Qual dos valores abaixo representa 5%?", a: ["0,005","0,05","0,5","5"], correct: 1 },
+  { q: "Qual dos valores abaixo representa 25%?", a: ["25","2,5","0,25","0,025"], correct: 2 },
+  { q: "Qual dos valores abaixo representa 340% de x?", a: ["340x","3,4x","0,34x","0,034x"], correct: 1 },
   { q: "30 representa 15% de qual número?", a: ["150","200","250","300"], correct: 1 },
-  { q: "40% de 30 alunos são meninas. Quantas?", a: ["10","12","15","18"], correct: 1 },
-  { q: "75% vs 4/5. Quem é maior?", a: ["Julia","Mariana"], correct: 1 },
-  { q: "Média de 2,4,6?", a: ["4","3","5","6"], correct: 0 },
-  { q: "Moda de 1,2,2,3?", a: ["2","1","3","0"], correct: 0 },
-  { q: "Juros simples: 1000 a 10% por 2 anos?", a: ["200","100","300","150"], correct: 0 }
+  { q: "72 representa 30% de qual número?", a: ["147","212","240","280"], correct: 2 },
+  { q: "Em uma sala de aula de 30 alunos, 40% são meninas. \n Quantas meninas há na sala?", a: ["10","12","15","18"], correct: 1 },
+  { q: "Quanto é 12% de 430", a: ["60","52","51,6","62,4"], correct: 2 },
+  { q: "Quanto é 21% de 500", a: ["96","100","105","115"], correct: 2 },
+  { q: "Renato acertou 75% das questões prova e Ribamar acertou 4/5.\n Quem acertou mais questões?", a: ["Renato","Ribamar"], correct: 1 },
+  { q: "Em um concurso, 520 candidatos se inscreveram, mas 364 compareceram.\n Neste caso, qual a porcentagem dos candidatos que faltaram a prova?", a: ["10%","20%","30%","40%"], correct: 2 },
+  { q: "Washington comprou um produto por R$125,00 e vendeu por 200.\n Qual lucro Washington obteve?", a: ["100%","75%","60%","50%"], correct: 2 },
+  { q: "Joaquim comprou um produto por R$210,00 e vendeu por 168.\n Em porcentagem, qual prejuizo Joaquim obteve?", a: ["10%","20%","30%","40%"], correct: 1 },
+  { q: "Um produto de 1000,00R$ teve dois aumentos sucessivos, o primeiro de 10% e o segundo de 5%.\n Qual o valor do produto após os aumentos?", a: ["1100","1150","1155","1175"], correct: 2 },
+  { q: "Aumentando 50% em 50, obtemos:", a: ["25","50","75","100"], correct: 2 },
+  { q: "Um valor aumenta 20% e depois diminui 20%. O que acontece com o valor?", a: ["Volta ao valor inicial","Aumenta","Diminui","Não muda"], correct: 2 },
+  { q: "Um número teve um aumento de 25% e passou a ser 125. Qual era o valor inicial?", a: ["80","90","100","110"], correct: 2 },
+  { q: "Qual é maior?", a: ["20% de 200","30% de 100","São iguais","Depende"], correct: 2 },
+  { q: "Qual é maior?", a: ["15% de 60","25% de 90","20% de 43","30% de 85"], correct: 2 },
+  { q: "Qual é dos valores é equivalente a 66%?", a: ["1/3","1/2","2/3","3/4"], correct: 2 },
+  { q: "Qual é dos valores é equivalente a 75%?", a: ["1/3","1/2","2/3","3/4"], correct: 3 },
+  { q: "Qual valor corresponde a 0,5%?", a: ["0,5","0,05","0,005","0,0005"], correct: 2 },
+
+  { q: "Qual o valor do juros simples em um capital de 1000 a 15% ao ano por 2 anos?", a: ["300","350","500","1300"], correct: 0 },
+  { q: "Um produto de 200R$ aumenta 10% ao mês á juros simples.\n Qual o valor do montante após 3 meses?", a: ["20","60","200","260"], correct: 3 },
+  { q: "Washington aplicou R$20 000,00 durante 3 meses em uma aplicação a juros simples com uma taxa de 6% ao mês.\n Qual o valor recebido por João ao final desta aplicação?", a: ["600","23000","23600","26000"], correct: 2 },
+  { q: "Um produto de 100R$ aumenta 10% ao mês á juros compostos.\n Qual o valor do montante após 2 meses?", a: ["110","120","121","133"], correct: 2 },
+  { q: "Washington comprou um produto por 225 após um desconto de 25%\n Qual o valor inicial do produto?", a: ["230","250","300","325"], correct: 2 },
+  { q: "Em juros simples, o valor dos juros cresce de forma:", a: ["Linear","Exponencial","Aleatória","Constante"], correct: 0 },
+  { q: "Em juros compostos, o valor dos juros cresce de forma:", a: ["Linear","Exponencial","Aleatória","Constante"], correct: 1 },
+  { q: "Nos juros compostos, os juros são calculados sobre:", a: ["Apenas o capital","Capital + juros acumulados","Apenas os juros","Nada"], correct: 1 },
+  { q: "Em juros simples, o tempo dobra. Os juros:", a: ["Diminuem","Dobram","Triplicam","Não mudam"], correct: 1 },
+
+  { q: "Se todos os valores de um conjunto aumentam 2 unidades, a média:", a: ["Não muda","Aumenta 2","Diminui","Dobra"], correct: 1 },
+  { q: "A média de 50 e 100 aumentou 10%. Qual o novo valor?", a: ["75","80","82,5","90"], correct: 2 },
+  { q: "Como é denominado o elemento central de um conjunto?", a: ["centro","mediana","moda","metade"], correct: 1 },
+  { q: "Como é denominado o elemento presente em maior quantidade em um conjunto?", a: ["media ponderada","mediana","moda","maior"], correct: 2 },
+  { q: "Qual a média dos valores: 2, 4, 6?", a: ["3","4","5","6"], correct: 1 },
+  { q: "Qual a média dos valores: 1,3,2,5,7,2,4,1?", a: ["2,66","2,75","3","3,12"], correct: 3 },
+  { q: "Qual a média dos valores: 3, 5, 4 , 6, 2?", a: ["3","4","5","6"], correct: 1 },
+  { q: "2,4,4,5,1,4\n No conjunto acima, o elemento 4 é: ", a: ["Média e Moda","Moda e mediana","Apenas moda","Nenhum"], correct: 0 },
+  { q: "Qual a mediana de: 1, 2, 3?", a: ["1","2","3","4"], correct: 1 },
+  { q: "Qual a mediana de: 4,1,2,5,3?", a: ["1","2","3","4"], correct: 2 },
+  { q: "Qual a mediana de: 1,2,3,4,5,6?", a: ["2,5","3","3,5","4"], correct: 2 },
+  { q: "Qual a mediana de: 4,1,2,5,3,6?", a: ["2,5","3","3,5","4"], correct: 2 },
+  { q: "Qual a moda de: 1, 2, 3, 4?", a: ["1","2","3","Não tem"], correct: 3 },
+  { q: "Qual a moda de: 1, 2, 2, 3?", a: ["1","2","3","Não tem"], correct: 1 }
 ];
 
 let currentQuestion = null;
@@ -348,9 +388,9 @@ function endGame(win) {
   document.getElementById("answers").innerHTML = "";
 
   if (win) {
-    document.getElementById("question").innerText = "🎉 Parabéns! Você venceu!";
+    document.getElementById("question").innerText = "🏅 Rapazzzzzz Parabéns!";
   } else {
-    document.getElementById("question").innerText = "💀 Você perdeu!";
+    document.getElementById("question").innerText = "💀 Você perdeu!\n 😂 Já sabia kkkk";
   }
 
   document.querySelector('.restart').style.display = 'block';
