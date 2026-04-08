@@ -3,139 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PIBID MATEMÁTICA</title>
+<title>Jogo da Forca - PIBID</title>
 
 <style>
-  * { box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /*esconder a div ao ser clicada*/
-  .screen { display: none; }
-  .active { display: block; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+              url('fundo.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-image: url(fundo_2.jpg);
-    background-position: center center;
-    background-color: blue;
-    margin: 0;
-    color: white;
-    display: flex;
-    justify-content: center;
-  }
+/* TELAS */
+.screen {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
 
-  .container {
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 15px;
-    width: 95%;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    margin: 20px auto;
-  }
+.active {
+  display: flex;
+}
 
-  button {
-    margin-top: 10px;
-    padding: 12px;
-    width: 70%;
-    border-radius: 8px;
-    border: 2px solid black;
-    background: lime;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
+/* CAIXA CENTRAL */
+.container {
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(32, 31, 31, 0.5);
+}
 
-  button:hover { background: green; }
+/* TEXTOS */
+h1 {
+  margin-bottom: 10px;
+}
 
+p {
+  margin: 5px 0;
+}
+
+/* BOTÕES */
+button {
+  width: 80%;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00ff88, #00c853);
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #00c853, #009624);
+  color: white;
+}
+
+/* ÁREA DO JOGO */
+#game .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  background: white;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+/* QUESTÃO */
+.question {
+  font-size: 20px;
+  margin: 15px 0;
+  min-height: 50px;
+}
+
+/* RESPOSTAS */
+#answers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* STATUS */
+.progress {
+  font-weight: bold;
+}
+
+/* BOTÃO RESTART */
+.restart {
+  background: linear-gradient(135deg, #ff5252, #c62828);
+  color: white;
+  display: none;
+}
+
+.restart:hover {
+  background: linear-gradient(135deg, #c62828, #8e0000);
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
   .question {
-    font-size: 20px;
-    margin: 15px 0;
-    min-height: 40px;
-    text-align: center;
+    font-size: 18px;
   }
-
-  canvas {
-    background: #fff;
-    border-radius: 10px;
-    margin: 10px 0;
-
-    position:relative;
-    top: 15%;
-    left: 40%;
-    transform: translate(-50%,-50%);
-  }
-
-  .progress, .status {
-    margin-top: 8px;
-  }
-
-  .restart {
-    margin-top: 15px;
-    background: red;
-    display: none;
-    width: 15%;
-
-    position:absolute;
-    left: 50%;
-    top: 70%;
-    transform: translate(-50%,-50%);
-  }
-
-  @media (max-width: 480px) {
-    .question { font-size: 18px; }
-  }
-
-  #home{
-    width: 70%;
-    position:absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%,-50%);
-  }
+}
 </style>
 </head>
 
 <body>
 
-  <div id="home" class="screen active">
-    <div class="container">
-      <h1>JOGO DA FORCA</h1>
-      <p> Porcentagem • Juros • Estatística</p>
-     <p> Desenvolvido pelo alunos Pibid Uespi</p>
-      <button onclick="goToRules()">Ver Regras</button>
-    </div>
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="container">
+    <h1>🎯 JOGO DA FORCA</h1>
+    <p>Porcentagem • Juros • Estatística</p>
+    <p>Desenvolvido pelo PIBID UESPI</p>
+    <button onclick="goToRules()">Ver Regras</button>
   </div>
+</div>
 
+<!-- REGRAS -->
 <div id="rules" class="screen">
   <div class="container">
     <h1>⚔️ Desafio</h1>
-    <p>Apostei que nenhum aluno do Edgar Tito consegue acertar 20 quetões 
-      sem deixar o personagem da forca morrer❗</p>
-    <p>📜 Regras: </p>
-    <p>✔ Acerte <b>20 questões</b></p>
-    <p>❌ Até <b>5 erros</b></p>
-    <p>⚠️ Não use a internet, <b>apenas seus conhecimentos </b></p>
-    <p></p>
-    <p>🎲 Perguntas aleatórias (Não adianta memorizar a ordem)</p>
+    <p>
+      Apostei que os alunos do Edgar Tito não conseguem acertar 
+      20 questões sem deixar o personagem da forca morrer!
+    </p>
+    <br>
+    <p>📜 Regras:</p>
+    <p>✔ 20 acertos para vencer</p>
+    <p>❌ Máximo de 6 erros</p>
+    <p>⚠️ Use apenas seu conhecimento</p>
+    <p>🎲 Perguntas aleatórias</p>
     <button onclick="startGame()">Começar</button>
   </div>
 </div>
 
+<!-- JOGO -->
 <div id="game" class="screen">
-    <h1>JOGO DA FORCA📊</h1>
+  <div class="container">
+    <h1>📊 JOGO DA FORCA</h1>
 
     <canvas id="hangman" width="200" height="170"></canvas>
 
     <div class="progress" id="progress">Acertos: 0/20</div>
 
     <div class="question" id="question"></div>
+
     <div id="answers"></div>
 
     <button class="restart" onclick="restartGame()">Jogar novamente</button>
+  </div>
 </div>
-
 
 <script>
 const canvas = document.getElementById('hangman');
@@ -210,11 +250,11 @@ function draw() {
 }
 
 const questions = [
-  { q: "30  representa 15% de qual número?", a: ["150","200","250","300"], correct: 1 },
-  { q: "Se em uma sala de aula há 30 alunos, dos quais 40% são meninas.\n Quantas meninas têm na sala?", a: ["10","12","15","18"], correct: 1 },
-  { q: "Júlia acertou 75% das questões de Matemática do teste.\nJá Mariana acertou 4/5. Quem acertou mais questões?", a: ["Julia","Mariana"], correct: 1 },
-  { q: "Qual a média dos seguintes valores: 2,4,6?", a: ["4","3","5","6"], correct: 0 },
-  { q: "Qual a moda dos seguintes valores: 1,2,2,3?", a: ["2","1","3","0"], correct: 0 },
+  { q: "30 representa 15% de qual número?", a: ["150","200","250","300"], correct: 1 },
+  { q: "40% de 30 alunos são meninas. Quantas?", a: ["10","12","15","18"], correct: 1 },
+  { q: "75% vs 4/5. Quem é maior?", a: ["Julia","Mariana"], correct: 1 },
+  { q: "Média de 2,4,6?", a: ["4","3","5","6"], correct: 0 },
+  { q: "Moda de 1,2,2,3?", a: ["2","1","3","0"], correct: 0 },
   { q: "Juros simples: 1000 a 10% por 2 anos?", a: ["200","100","300","150"], correct: 0 }
 ];
 
@@ -259,15 +299,8 @@ function getRandomQuestion() {
 function loadQuestion() {
   if (gameOver) return;
 
-  if (hits >= 20) {
-    endGame(true);
-    return;
-  }
-
-  if (errors >= 6) {
-    endGame(false);
-    return;
-  }
+  if (hits >= 20) return endGame(true);
+  if (errors >= 6) return endGame(false);
 
   currentQuestion = getRandomQuestion();
 
@@ -294,11 +327,8 @@ function loadQuestion() {
 function checkAnswer(index) {
   if (gameOver) return;
 
-  if (index === currentQuestion.correct) {
-    hits++;
-  } else {
-    errors++;
-  }
+  if (index === currentQuestion.correct) hits++;
+  else errors++;
 
   updateStatus();
 
@@ -318,9 +348,9 @@ function endGame(win) {
   document.getElementById("answers").innerHTML = "";
 
   if (win) {
-    document.getElementById("question").innerText = "🎉 Parabéns! Você acertou 20 questões!";
+    document.getElementById("question").innerText = "🎉 Parabéns! Você venceu!";
   } else {
-    document.getElementById("question").innerText = "Enforcaram o Boneco 💀 \n Sabia que você não conseguiria 😂.";
+    document.getElementById("question").innerText = "💀 Você perdeu!";
   }
 
   document.querySelector('.restart').style.display = 'block';
